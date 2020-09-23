@@ -124,7 +124,7 @@ $(document).ready(
                 $('#btncrear').show();
             }
         )
-        $('#formcrear').submit(function () {
+        $('#formcrear').submit(function (e) {
             a = $('#inputnombre').val();
             b = $('#inputsexo').val();
             c = $('#inputtipo').val();
@@ -162,7 +162,7 @@ $(document).ready(
             })
 
 
-            event.preventDefault();
+            e.preventDefault();
         })
 
     })
