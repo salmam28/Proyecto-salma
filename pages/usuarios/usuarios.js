@@ -4,6 +4,8 @@ $(document).ready(
         $('#conten-crear').hide();
         $('#conten-editar').hide();
 
+       // $('.btncrear')
+
         $('table').on('click', '.eliminar', function () {
 
             const resp = confirm('¿Esta seguro que quiere elimnarlo?')
@@ -16,6 +18,7 @@ $(document).ready(
 
                 window.query(sql, [codi]).then(function (result) {
                     fila.remove();
+                    toastr.success('Eliminado correctamente')
                     console.log('Eliminado correctamente');
                 }, function (error) {
                     console.log('Error eliminando...', error);
@@ -54,6 +57,7 @@ $(document).ready(
 
             }
         }, function (error) {
+            toastr.error('No se pudo ingresar dato')
             console.log('Dato ingresado', error);
         })
 
@@ -68,8 +72,15 @@ $(document).ready(
             const tipo = tr.find('.td-tipo').text();
             const usuario = tr.find('.td-usuario').text();
 
+            if (sexo == 'F') {
+                document.getElementById('sexoFemeEdit').checked = true;
+                document.getElementById('sexoMascEdit').checked = false;
+            }else{
+                document.getElementById('sexoMascEdit').checked = true;
+                document.getElementById('sexoFemeEdit').checked = false;
+            }
+
             $('#inputnombreEdit').val(nombre);
-            $('#inputsexoEdit').val(sexo);
             $('#inputtipoEdit').val(tipo);
             $('#inputusuarioEdit').val(usuario);
 
@@ -78,7 +89,7 @@ $(document).ready(
         
         $('#formEditar').submit(function () {
             a = $('#inputnombreEdit').val();
-            b = $('#inputsexoEdit').val();
+            b = document.getElementById('sexoFemeEdit').checked ? 'F' : 'M'; 
             c = $('#inputtipoEdit').val();
             d = $('#inputusuarioEdit').val();
 
@@ -96,6 +107,7 @@ $(document).ready(
                 $('#conten-editar').hide();
                 
             }, function (error) {
+                toastr.error('No se pudo ingresar dato');
                 console.log('Dato ingresado', error);
             })
 
@@ -126,7 +138,7 @@ $(document).ready(
         )
         $('#formcrear').submit(function (e) {
             a = $('#inputnombre').val();
-            b = $('#inputsexo').val();
+            b = document.getElementById('sexoFeme').checked ? 'F' : 'M'; 
             c = $('#inputtipo').val();
             d = $('#inputusuario').val();
 
@@ -158,6 +170,7 @@ $(document).ready(
                 );
                 $('#conten-crear').hide();
             }, function (error) {
+                toastr.error('No se pudo ingresar dato')
                 console.log('Dato ingresado', error);
             })
 

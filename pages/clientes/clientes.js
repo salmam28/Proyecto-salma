@@ -56,6 +56,7 @@ $(document).ready(
 
             }
         }, function (error) {
+            toastr.error('No se pudo ingresar dato')
             console.log('Dato ingresado', error);
         })
 
@@ -72,9 +73,17 @@ $(document).ready(
             const acudiente = tr.find('.td-acudiente').text();
             const telefono = tr.find('.td-telefono').text();
 
+            if (sexo == 'F') {
+                document.getElementById('sexoFemeEdit').checked = true;
+                document.getElementById('sexoMascEdit').checked = false;
+            }else{
+                document.getElementById('sexoMascEdit').checked = true;
+                document.getElementById('sexoFemeEdit').checked = false;
+            }
+
+
             $('#inputnombreEdit').val(nombre);
             $('#inputapellidosEdit').val(apellidos);
-            $('#inputsexoEdit').val(sexo);
             $('#inputdocumentoEdit').val(documento);
             $('#inputacudienteEdit').val(acudiente);
             $('#inputtelefonoEdit').val(telefono);
@@ -86,7 +95,7 @@ $(document).ready(
         $('#formEditar').submit(function () {
             a = $('#inputnombreEdit').val();
             b = $('#inputapellidosEdit').val();
-            c = $('#inputsexoEdit').val();
+            c = document.getElementById('sexoFemeEdit').checked ? 'F' : 'M'; 
             d = $('#inputdocumentoEdit').val();
             e = $('#inputacudienteEdit').val();
             f = $('#inputtelefonoEdit').val();
@@ -109,6 +118,7 @@ $(document).ready(
                 $('#conten-editar').hide();
                 
             }, function (error) {
+                toastr.error('No se pudo ingresar dato')
                 console.log('Dato ingresado', error);
             })
 
@@ -142,7 +152,7 @@ $(document).ready(
         $('#formcrear').submit(function () {
             a = $('#inputnombre').val();
             b = $('#inputapellidos').val();
-            c = $('#inputsexo').val();
+            c = document.getElementById('sexoFeme').checked ? 'F' : 'M'; 
             d = $('#inputdocumento').val();
             e = $('#inputacudiente').val();
             f = $('#inputtelefono').val();
@@ -178,6 +188,7 @@ $(document).ready(
                 );
                 $('#conten-crear').hide();
             }, function (error) {
+                toastr.error('No se pudo ingresar dato')
                 console.log('Dato ingresado', error);
             })
 
