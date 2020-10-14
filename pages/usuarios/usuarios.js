@@ -42,6 +42,7 @@ $(document).ready(
                         <td class='td-sexo'>"+ u['sexo'] + "</td>\
                         <td class='td-tipo'>"+ u['tipo'] + "</td>\
                         <td class='td-usuario'>"+ u['usuario'] + "</td>\
+                        <td class='td-password'>"+ u['password'] + "</td>\
                         <td>\
                             <div class='btn-group'>\
                                 <a href='#' class='btn btn-danger btn-sm eliminar'>\
@@ -71,6 +72,7 @@ $(document).ready(
             const sexo = tr.find('.td-sexo').text();
             const tipo = tr.find('.td-tipo').text();
             const usuario = tr.find('.td-usuario').text();
+            const password = tr.find('.td-password').text();
 
             if (sexo == 'F') {
                 document.getElementById('sexoFemeEdit').checked = true;
@@ -83,6 +85,7 @@ $(document).ready(
             $('#inputnombreEdit').val(nombre);
             $('#inputtipoEdit').val(tipo);
             $('#inputusuarioEdit').val(usuario);
+            $('#inputpasswordEdit').val(password);
 
             $('#conten-editar').show('fast');
         })
@@ -92,17 +95,19 @@ $(document).ready(
             b = document.getElementById('sexoFemeEdit').checked ? 'F' : 'M'; 
             c = $('#inputtipoEdit').val();
             d = $('#inputusuarioEdit').val();
+            e = $('#inputpasswordEdit').val();
 
             
 
-            sql = 'UPDATE users SET nombres=?,sexo=?,tipo=?,usuario=? WHERE rowid=? ';
+            sql = 'UPDATE users SET nombres=?,sexo=?,tipo=?,usuario=?,password=? WHERE rowid=? ';
 
-            window.query(sql, [a, b, c, d,fila_editantdo.data('id')]).then(function (result) {
+            window.query(sql, [a, b, c, d, e,fila_editantdo.data('id')]).then(function (result) {
 
                 fila_editantdo.find('.td-nombre').text(a);
                 fila_editantdo.find('.td-sexo').text(b);
                 fila_editantdo.find('.td-tipo').text(c);
                 fila_editantdo.find('.td-usuario').text(d);
+                fila_editantdo.find('.td-password').text(e);
 
                 $('#conten-editar').hide();
                 
@@ -128,6 +133,7 @@ $(document).ready(
                 $('#inputsexo').val('');
                 $('#inputtipo').val('');
                 $('#inputusuario').val('');
+                $('#inputpassword').val('');
             }
         )
         $('#btncancel').click(
@@ -136,16 +142,17 @@ $(document).ready(
                 $('#btncrear').show();
             }
         )
-        $('#formcrear').submit(function (e) {
+        $('#formcrear').submit(function () {
             a = $('#inputnombre').val();
             b = document.getElementById('sexoFeme').checked ? 'F' : 'M'; 
             c = $('#inputtipo').val();
             d = $('#inputusuario').val();
+            e = $('#inputpassword').val();
 
 
-            sql = 'INSERT INTO users(nombres,sexo,tipo,usuario)VALUES(?,?,?,?)';
+            sql = 'INSERT INTO users(nombres,sexo,tipo,usuario,password)VALUES(?,?,?,?,?)';
 
-            window.query(sql, [a, b, c, d]).then(function (result) {
+            window.query(sql, [a, b, c, d, e]).then(function (result) {
                 alert('Usuario creado con éxito')
                 console.log('Dato ingresado', result);
 
@@ -156,6 +163,7 @@ $(document).ready(
                         <td class='td-sexo'>"+ b + "</td>\
                         <td class='td-tipo'>"+ c + "</td>\
                         <td class='td-usuario'>"+ d + "</td>\
+                        <td class='td-password'>"+ e + "</td>\
                         <td>\
                             <div class='btn-group'>\
                                 <a href='#' class='btn btn-danger btn-sm eliminar'>\
@@ -175,7 +183,7 @@ $(document).ready(
             })
 
 
-            e.preventDefault();
+            event.preventDefault();
         })
 
     })
